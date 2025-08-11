@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Caches
+.pytest_cache
+.ruff_cache
+.coverage
+
+# Git
+.git
+.gitignore
+
+# Local environment
+.env
+
+# Tests
+tests/
+
+# Docker related files that shouldn't be in the image
+Dockerfile
+docker-compose.yml
+
+# Project files that are copied explicitly in Dockerfile
+
+# Other config
+pyproject.toml
+
+# Windows Batch file
+arrancar.bat

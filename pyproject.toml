@@ -1,0 +1,27 @@
+[tool.ruff.lint]
+# Activa las reglas por defecto de Pyflakes (F), pycodestyle (E, W), e isort (I)
+select = ["E", "F", "W", "I"]
+
+# Ignora algunos errores comunes en proyectos web
+# E501: Línea demasiado larga (lo manejaremos con el formateador)
+ignore = ["E501"]
+
+[tool.ruff]
+# Excluye directorios que no queremos revisar
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache"
+]
+
+[tool.ruff.format]
+# Usa comillas dobles por consistencia
+quote-style = "double"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-p no:warnings"
+]
+pythonpath = [".", "app"]
+testpaths = ["tests"]

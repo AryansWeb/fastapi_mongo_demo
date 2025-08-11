@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches de pytest y ruff
+.pytest_cache/
+.ruff_cache/
+
+# Entornos virtuales
+.venv/
+.env/
+venv/
+env/
+ENV/
+
+# Archivos de entorno
+*.env
+
+# Archivos de configuración locales
+*.ini
+*.log
+
+# Archivos de base de datos (si usas SQLite)
+*.sqlite3
+
+# Archivos de migraciones (si usas alembic u otro)
+migrations/
+
+# Carpeta de caché de Docker (si usas docker-compose)
+docker-compose.override.yml
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Carpeta build y dist (si usas packaging)
+build/
+dist/
+
+# PyCharm y VSCode
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Cobertura de código
+.coverage
+htmlcov/
+
+# Scripts locales
+arrancar.bat
