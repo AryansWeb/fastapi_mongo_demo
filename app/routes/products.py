@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, status
 
@@ -14,9 +14,33 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[ProductOut])
-async def get_all_products(user_id: str = Depends(get_current_user_id)):
-    products = await Product.find(Product.user_created == user_id).to_list()
+async def get_all_products(
+    user_id: str = Depends(get_current_user_id),
+    min_price: float = 0.0,
+    max_price: float = 1000000.0,  # A large default value
+    query: Optional[str] = None,
+):
+    find_query = {"user_created": user_id}
+    if query:
+        find_query["$text"] = {"$search": query}
+
+    products = await Product.find(
+        find_query,
+        Product.price >= min_price,
+        Product.price <= max_price,
+    ).to_list()
     return products
+
+
+@router.get("/aggregation/by_user", response_model=dict)
+async def aggregate_products_by_user():
+    pipeline = [
+        {"$group": {"_id": "$user_created", "count": {"$sum": 1}}},
+        {"$project": {"user_id": "$_id", "count": 1, "_id": 0}},
+    ]
+    result = await Product.get_pymongo_collection().aggregate(pipeline).to_list()
+
+    return {"data": result}
 
 
 @router.post("/", response_model=ProductOut, status_code=status.HTTP_201_CREATED)
