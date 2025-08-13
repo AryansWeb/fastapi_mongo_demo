@@ -35,15 +35,11 @@ async def field_too_short_exception_handler(request: Request, exc: FieldTooShort
     return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
 
 
-async def product_id_invalid_exception_handler(
-    request: Request, exc: ProductIdInvalid
-):
+async def product_id_invalid_exception_handler(request: Request, exc: ProductIdInvalid):
     return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
 
 
-async def product_not_found_exception_handler(
-    request: Request, exc: ProductNotFound
-):
+async def product_not_found_exception_handler(request: Request, exc: ProductNotFound):
     return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
 
 
@@ -64,6 +60,7 @@ async def exception_handler(request: Request, exc: Exception):
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={"detail": "Internal Server Error"},
     )
+
 
 def register_exception_handlers(app: FastAPI):
     app.add_exception_handler(

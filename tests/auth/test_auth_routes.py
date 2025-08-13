@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
 
 from app.core.exceptions import FieldRequired, FieldTooShort
 from app.routes.auth import login
@@ -157,7 +158,7 @@ class TestLogin:
             await login(mock_form_data)
 
         assert "password" in str(exc_info.value)
-        
+
         mock_form_data.password = ""
 
         with pytest.raises(FieldTooShort) as exc_info:
