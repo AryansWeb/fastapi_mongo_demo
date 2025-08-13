@@ -16,7 +16,7 @@ La documentación interactiva (Swagger UI) se encuentra en la ruta raíz.
 
 Este proyecto demuestra el desarrollo de una API escalable y lista para producción, construida con un stack tecnológico moderno y siguiendo las mejores prácticas de la industria.
 
-La aplicación gestiona una API para productos y usuarios, implementando operaciones CRUD y un sistema de autenticación robusto. El proyecto está completamente contenerizado y desplegado en la nube de Microsoft Azure.
+La aplicación gestiona una API para productos y usuarios, implementando operaciones CRUD, un sistema de autenticación robusto, y funcionalidades avanzadas de búsqueda y agregación. El proyecto está completamente contenerizado y desplegado en la nube de Microsoft Azure.
 
 ## 🛠️ Arquitectura y Habilidades Demostradas
 
@@ -34,6 +34,8 @@ Este repositorio es una muestra práctica de las siguientes capacidades técnica
 - **Bases de Datos NoSQL - MongoDB:**
   - **Modelado de Colecciones:** Se utiliza el ODM **Beanie** (basado en Pydantic y Motor) para definir los esquemas de las colecciones de forma declarativa y asíncrona.
   - **Interacción Asíncrona:** Todas las operaciones con la base de datos son no bloqueantes.
+  - **Optimización de Consultas:** Creación de **índices** (incluyendo índices de texto) para acelerar las búsquedas y filtros.
+  - **Agregaciones:** Uso del **Aggregation Framework** de MongoDB para realizar cálculos complejos en el servidor.
 
 - **Pruebas de Calidad de Código:**
   - **Testing:** El proyecto incluye una suite de **pruebas unitarias y de integración** desarrolladas con **Pytest** (ver directorio `/tests`).
@@ -73,15 +75,16 @@ fastapi_mongo_demo/
 
 La documentación completa e interactiva se encuentra en la ruta raíz (`/`) una vez que la aplicación está en ejecución.
 
-| Verbo    | Ruta                            | Descripción                                    |
-|----------|---------------------------------|------------------------------------------------|
-| **POST** | `/api/v1/auth/register`         | Registra un nuevo usuario.                     |
-| **POST** | `/api/v1/auth/login`            | Inicia sesión y obtiene un token JWT.          |
-| **GET**  | `/api/v1/products/`             | Obtiene una lista de todos los productos.      |
-| **POST** | `/api/v1/products/`             | Crea un nuevo producto (requiere autenticación).|
-| **GET**  | `/api/v1/products/{product_id}` | Obtiene un producto por su ID.                 |
-| **PUT**  | `/api/v1/products/{product_id}` | Actualiza un producto (requiere autenticación). |
-| **DELETE**| `/api/v1/products/{product_id}`| Elimina un producto (requiere autenticación).   |
+| Verbo      | Ruta                                      | Descripción                                                                                                     |
+|------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| **POST**   | `/api/v1/auth/register`                   | Registra un nuevo usuario.                                                                                      |
+| **POST**   | `/api/v1/auth/login`                      | Inicia sesión y obtiene un token JWT.                                                                           |
+| **GET**    | `/api/v1/products/`                       | Obtiene una lista de productos. Permite filtrar por `min_price`, `max_price` y `query` (búsqueda por texto). |
+| **POST**   | `/api/v1/products/`                       | Crea un nuevo producto (requiere autenticación).                                                                |
+| **GET**    | `/api/v1/products/aggregation/by_user`    | Agrega la cantidad de productos creados por cada usuario.                                                       |
+| **GET**    | `/api/v1/products/{product_id}`           | Obtiene un producto por su ID.                                                                                  |
+| **PUT**    | `/api/v1/products/{product_id}`           | Actualiza un producto (requiere autenticación).                                                                 |
+| **DELETE** | `/api/v1/products/{product_id}`           | Elimina un producto (requiere autenticación).                                                                   |
 
 ---
 
@@ -143,7 +146,7 @@ Esta sección describe a alto nivel la arquitectura y el flujo de trabajo para d
 
 1.  **Azure Cosmos DB (API para MongoDB):** Actúa como la base de datos NoSQL gestionada, ofreciendo escalabilidad y alta disponibilidad.
 2.  **Azure Container Registry (ACR):** Un registro de Docker privado y seguro para almacenar y gestionar las imágenes de la aplicación.
-3.  **Azure App Service (para Contenedores):** Es el servicio PaaS que ejecuta la aplicación a partir de la imagen de Docker almacenada en ACR. Gestiona el escalado, la seguridad y la red.
+3.  **Azure App Service (para Contenedares):** Es el servicio PaaS que ejecuta la aplicación a partir de la imagen de Docker almacenada en ACR. Gestiona el escalado, la seguridad y la red.
 
 ### Flujo de Despliegue Conceptual
 
