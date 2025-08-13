@@ -15,3 +15,9 @@ class Product(Document):
 
     class Settings:
         name = "products"
+        indexes = [
+            [
+                ("name", "text"),
+                ("description", "text"),
+            ]
+        ]
