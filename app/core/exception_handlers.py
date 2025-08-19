@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 
 from app.core.exceptions import (
     CredentialsException,
+    DatabaseConnectionError,
     EmailAlreadyRegistered,
     FieldRequired,
     FieldTooShort,
@@ -49,6 +50,12 @@ async def product_access_forbidden_exception_handler(
     return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
 
 
+async def database_connection_error_exception_handler(
+    request: Request, exc: DatabaseConnectionError
+):
+    return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+
 async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=exc.status_code, content={"detail": exc.detail or "HTTP Error"}
@@ -74,6 +81,9 @@ def register_exception_handlers(app: FastAPI):
     app.add_exception_handler(ProductNotFound, product_not_found_exception_handler)
     app.add_exception_handler(
         ProductAccessForbidden, product_access_forbidden_exception_handler
+    )
+    app.add_exception_handler(
+        DatabaseConnectionError, database_connection_error_exception_handler
     )
     app.add_exception_handler(HTTPException, http_exception_handler)
     app.add_exception_handler(Exception, exception_handler)

@@ -77,6 +77,7 @@ La documentación completa e interactiva se encuentra en la ruta raíz (`/`) una
 
 | Verbo      | Ruta                                      | Descripción                                                                                                     |
 |------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| **GET**    | `/health`                                 | Endpoint de verificación de salud de la aplicación y conectividad con MongoDB.                                 |
 | **POST**   | `/api/v1/auth/register`                   | Registra un nuevo usuario.                                                                                      |
 | **POST**   | `/api/v1/auth/login`                      | Inicia sesión y obtiene un token JWT.                                                                           |
 | **GET**    | `/api/v1/products/`                       | Obtiene una lista de productos. Permite filtrar por `min_price`, `max_price` y `query` (búsqueda por texto). |
